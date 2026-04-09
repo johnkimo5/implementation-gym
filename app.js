@@ -15,6 +15,12 @@
     const completedProblems = new Set(); // Track completed problems by id
     const CM_CDN = "https://cdn.jsdelivr.net/npm/codemirror@5.65.16";
 
+    // Timer state
+    let timerInterval = null;
+    let timerStartTime = null;
+    let timerElapsed = 0; // milliseconds
+    let timerRunning = false;
+
     // Load saved state from localStorage
     function loadState() {
         try {
@@ -121,6 +127,58 @@
     }
 
     // =========================================================================
+    // Timer
+    // =========================================================================
+    function formatTime(ms) {
+        const totalSeconds = Math.floor(ms / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    }
+
+    function updateTimerDisplay() {
+        const display = document.getElementById("timer-display");
+        const now = timerRunning ? Date.now() - timerStartTime + timerElapsed : timerElapsed;
+        display.textContent = formatTime(now);
+    }
+
+    function startTimer() {
+        if (timerRunning) return;
+        timerRunning = true;
+        timerStartTime = Date.now();
+        document.getElementById("timer").classList.add("running");
+        document.getElementById("timer").classList.remove("stopped");
+        timerInterval = setInterval(updateTimerDisplay, 200);
+        updateTimerDisplay();
+    }
+
+    function stopTimer() {
+        if (!timerRunning) return;
+        timerRunning = false;
+        timerElapsed += Date.now() - timerStartTime;
+        clearInterval(timerInterval);
+        timerInterval = null;
+        document.getElementById("timer").classList.remove("running");
+        document.getElementById("timer").classList.add("stopped");
+        updateTimerDisplay();
+    }
+
+    function resetTimer() {
+        stopTimer();
+        timerElapsed = 0;
+        document.getElementById("timer").classList.remove("stopped");
+        updateTimerDisplay();
+        startTimer();
+    }
+
+    function getElapsedTime() {
+        if (timerRunning) {
+            return timerElapsed + (Date.now() - timerStartTime);
+        }
+        return timerElapsed;
+    }
+
+    // =========================================================================
     // Problem List
     // =========================================================================
     function renderProblemList() {
@@ -182,6 +240,9 @@
         // Clear output
         clearOutput();
 
+        // Start timer for this problem
+        resetTimer();
+
         saveState();
     }
 
@@ -202,7 +263,9 @@
 
         // Summary banner
         if (allPassed) {
-            html += `<div class="result-summary pass">&#10003; ${summary}</div>`;
+            const elapsed = getElapsedTime();
+            stopTimer();
+            html += `<div class="result-summary pass">&#10003; ${summary} &mdash; ${formatTime(elapsed)}</div>`;
             // Mark problem as completed
             completedProblems.add(PROBLEMS[currentProblemIndex].id);
             renderProblemList();
@@ -426,6 +489,7 @@
         document.getElementById("solution-modal").addEventListener("click", (e) => {
             if (e.target === e.currentTarget) handleCloseModal();
         });
+        document.getElementById("timer-reset-btn").addEventListener("click", resetTimer);
     }
 
     // Start when DOM is ready
