@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation Gym</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Nav -->
+    <nav class="topnav">
+        <div class="topnav-left">
+            <span class="logo">&#x1F3CB; Implementation Gym</span>
+        </div>
+        <div class="topnav-center">
+            <button id="prev-btn" class="nav-arrow" title="Previous problem">&larr;</button>
+            <span id="problem-counter" class="problem-counter">1 / 20</span>
+            <button id="next-btn" class="nav-arrow" title="Next problem">&rarr;</button>
+        </div>
+        <div class="topnav-right">
+            <span id="pyodide-status" class="status-badge loading">Loading Python...</span>
+        </div>
+    </nav>
+
+    <!-- Main Layout -->
+    <div class="main-container">
+        <!-- Left Panel: Problem Description -->
+        <div class="left-panel" id="left-panel">
+            <!-- Problem List (collapsible) -->
+            <div class="problem-list-header" id="problem-list-toggle">
+                <span>Problem List</span>
+                <span class="chevron" id="chevron">&#9660;</span>
+            </div>
+            <div class="problem-list" id="problem-list"></div>
+
+            <!-- Problem Description -->
+            <div class="problem-description" id="problem-description">
+                <div class="problem-title" id="problem-title"></div>
+                <div class="problem-tags" id="problem-tags"></div>
+                <div class="problem-body" id="problem-body"></div>
+            </div>
+        </div>
+
+        <!-- Resizer -->
+        <div class="resizer" id="resizer"></div>
+
+        <!-- Right Panel: Editor + Output -->
+        <div class="right-panel" id="right-panel">
+            <!-- Editor -->
+            <div class="editor-container" id="editor-container"></div>
+
+            <!-- Button Bar -->
+            <div class="button-bar">
+                <div class="button-bar-left">
+                    <button id="reset-btn" class="btn btn-secondary" title="Reset to starter code">Reset</button>
+                    <button id="show-solution-btn" class="btn btn-secondary" title="Show reference solution">Show Solution</button>
+                </div>
+                <div class="button-bar-right">
+                    <button id="run-btn" class="btn btn-run" title="Run your code against example tests">Run</button>
+                    <button id="check-btn" class="btn btn-check" title="Check equivalence against all tests">Check Solution</button>
+                </div>
+            </div>
+
+            <!-- Output Panel -->
+            <div class="output-panel" id="output-panel">
+                <div class="output-header">Output</div>
+                <div class="output-body" id="output-body">
+                    <span class="output-placeholder">Run your code or check your solution to see results here.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Solution Modal -->
+    <div class="modal-overlay" id="solution-modal" style="display:none;">
+        <div class="modal">
+            <div class="modal-header">
+                <span>Reference Solution</span>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <pre class="modal-code" id="modal-code"></pre>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
+    <script src="problems.js"></script>
+    <script src="runner.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
