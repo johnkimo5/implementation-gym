@@ -2,27 +2,27 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-    --bg-primary: #1a1a2e;
-    --bg-secondary: #16213e;
-    --bg-tertiary: #0f3460;
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #282828;
+    --bg-tertiary: #333333;
     --bg-editor: #1e1e1e;
-    --bg-card: #1c1c3a;
-    --bg-hover: #2a2a4a;
-    --bg-output: #141425;
-    --text-primary: #e0e0e0;
-    --text-secondary: #a0a0b8;
-    --text-muted: #6b6b80;
-    --accent: #e94560;
-    --accent-hover: #ff6b81;
+    --bg-card: #2a2a2a;
+    --bg-hover: #3e3e3e;
+    --bg-output: #1a1a1a;
+    --text-primary: #eff1f6;
+    --text-secondary: #b3b3b3;
+    --text-muted: #6a6a6a;
+    --accent: #ffa116;
+    --accent-hover: #ffb84d;
     --green: #2cbb5d;
-    --green-bg: rgba(44, 187, 93, 0.12);
+    --green-bg: rgba(44, 187, 93, 0.15);
     --red: #ef4743;
-    --red-bg: rgba(239, 71, 67, 0.12);
-    --yellow: #ffc107;
-    --yellow-bg: rgba(255, 193, 7, 0.12);
-    --border: #2a2a4a;
-    --border-light: #3a3a5a;
-    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --red-bg: rgba(239, 71, 67, 0.15);
+    --yellow: #ffc01e;
+    --yellow-bg: rgba(255, 192, 30, 0.15);
+    --border: #303030;
+    --border-light: #404040;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --mono: 'Menlo', 'Monaco', 'Courier New', monospace;
     --radius: 8px;
     --radius-sm: 4px;
@@ -220,7 +220,7 @@ html, body {
     text-transform: uppercase;
     letter-spacing: 0.3px;
 }
-.tag.category { background: var(--bg-tertiary); color: #7ec8e3; }
+.tag.category { background: var(--bg-tertiary); color: var(--text-secondary); }
 .tag.difficulty-easy { background: var(--green-bg); color: var(--green); }
 .tag.difficulty-medium { background: var(--yellow-bg); color: var(--yellow); }
 .tag.difficulty-hard { background: var(--red-bg); color: var(--red); }
@@ -243,7 +243,7 @@ html, body {
     border-radius: 3px;
     font-family: var(--mono);
     font-size: 13px;
-    color: #e06c75;
+    color: var(--accent);
 }
 .problem-body pre {
     background: var(--bg-editor);
@@ -256,7 +256,7 @@ html, body {
 .problem-body pre code {
     background: none;
     padding: 0;
-    color: #abb2bf;
+    color: #d4d4d4;
     font-size: 13px;
     line-height: 1.5;
 }
@@ -280,7 +280,7 @@ html, body {
     margin-bottom: 6px;
 }
 .problem-body .hint {
-    background: rgba(233, 69, 96, 0.08);
+    background: rgba(255, 161, 22, 0.08);
     border-left: 3px solid var(--accent);
     padding: 10px 14px;
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
@@ -321,6 +321,32 @@ html, body {
     line-height: 1.6;
 }
 
+/* Match LeetCode's editor look */
+.CodeMirror {
+    height: 100% !important;
+    background: var(--bg-editor) !important;
+    color: #d4d4d4 !important;
+    font-family: var(--mono) !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+}
+.CodeMirror-gutters {
+    background: var(--bg-editor) !important;
+    border-right: 1px solid var(--border) !important;
+}
+.CodeMirror-linenumber {
+    color: var(--text-muted) !important;
+}
+.CodeMirror-cursor {
+    border-left-color: #fff !important;
+}
+.CodeMirror-selected {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+.CodeMirror-activeline-background {
+    background: rgba(255, 255, 255, 0.04) !important;
+}
+
 /* ===== Button Bar ===== */
 .button-bar {
     display: flex;
@@ -353,10 +379,10 @@ html, body {
 .btn-secondary:hover:not(:disabled) { background: var(--border-light); color: var(--text-primary); }
 
 .btn-run {
-    background: var(--bg-tertiary);
-    color: #7ec8e3;
+    background: var(--bg-hover);
+    color: var(--text-primary);
 }
-.btn-run:hover:not(:disabled) { background: #124a80; }
+.btn-run:hover:not(:disabled) { background: #4a4a4a; }
 
 .btn-check {
     background: var(--green);
@@ -481,7 +507,7 @@ html, body {
     font-family: var(--mono);
     font-size: 13px;
     line-height: 1.6;
-    color: #abb2bf;
+    color: #d4d4d4;
     background: var(--bg-editor);
     margin: 0;
     white-space: pre;
